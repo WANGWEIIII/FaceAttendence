@@ -1,0 +1,380 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>公司考勤系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+<meta name="author" content="Vincent Garreau" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" media="screen" href="../common/login/css/style.css">
+<!-- Custom fonts for this template-->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="../https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<script type="text/javascript" src="../vendor/jquery/jquery.js"></script>
+<style>
+	.face-box span.corner1{
+			position: absolute;
+			left: -5px;
+			top: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color: #3d33ff;
+			border-width: 3px 0 0 3px;
+	}
+	.face-box span.corner2{
+			position: absolute;
+			right: -5px;
+			top: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 3px 3px 0 0;
+	}
+	.face-box span.corner3{
+			position: absolute;
+			right: -5px;
+			bottom: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 0 3px 3px 0;
+	}
+	.face-box span.corner4{
+			position: absolute;
+			left: -5px;
+			bottom: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 0 0 3px 3px;
+	}
+	.face-box{
+		width: 1000px;
+		height: 580px;
+		margin: 160px auto;
+		background-color: aliceblue;
+		position: relative;
+		z-index: 100;
+		padding: 10px 20px;
+		box-sizing: border-box;
+		background-color: rgba(11, 12, 70, 0.8);
+		border: 2px solid #3120b2;
+	}
+	.face-box .header{
+		width: 100%;
+		height: 60px;
+		border-bottom: 2px solid #3120b2;
+	}
+	.face-box .content{
+		padding: 30px 0;
+		width: 100%;
+		height: calc(100% - 60px);
+		display: flex;
+	}
+	.face-box .left-box{
+		width: 580px;
+		height: 100%;
+		margin-left: 16px;
+	}
+	.face-box .right-box{
+		width: 320px;
+		margin-left: 30px;
+	}
+	.box-time{
+		color: #fff;
+		font-size: 24px;
+		margin-left: 20px;
+		float: right;
+		line-height: 60px;
+	}
+	.video-box{
+		width: 584px;
+		height: 440px;
+		position: relative;
+		border: 2px solid #3120b2;
+		background:  rgba(11, 12, 70, 0.6);
+	}
+	.face-box .video-box span.corner1{
+			position: absolute;
+			left: -5px;
+			top: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color: #3d33ff;
+			border-width: 3px 0 0 3px;
+	}
+	.face-box .video-box span.corner2{
+			position: absolute;
+			right: -5px;
+			top: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 3px 3px 0 0;
+	}
+	.face-box .video-box span.corner3{
+			position: absolute;
+			right: -5px;
+			bottom: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 0 3px 3px 0;
+	}
+	.face-box .video-box span.corner4{
+			position: absolute;
+			left: -5px;
+			bottom: -5px;
+			padding: 10px;
+			border-style: solid;
+			border-color:  #3d33ff;
+			border-width: 0 0 3px 3px;
+	}
+	.detail-box{
+		margin: 30px auto;
+		display: flex;
+		height: 310px;
+	}
+	.detail-box .isChock{
+		flex: 1;
+		margin-right: 20px;
+		border: 1px solid #3120b2;
+		background:  rgba(11, 12, 70, 0.6);
+	}
+	.detail-box .notChock{
+		flex: 1;
+		border: 1px solid #3120b2;
+		background:  rgba(11, 12, 70, 0.6);
+	}
+	.detail-box .header{
+		height: 40px;
+		color: #fff;
+		text-align: center;
+		line-height: 40px;
+		font-size: 18px;
+		border-bottom: 1px solid #3120b2;
+	}
+	.detail-box .detail-content{
+		padding: 20px 10px;
+		color: #fff;
+		text-align: center;
+		font-size: 16px;
+		overflow: auto;
+	}
+</style>
+</head>
+<body style="overflow: hidden;">
+	<div class="face-box">
+		<span class="corner1"></span>
+		<span class="corner2"></span>
+		<span class="corner3"></span>
+		<span class="corner4"></span>
+		<div class="header">
+			<h2 style="color:#fff; margin-left: 20px; line-height: 50px; float: left;">公司考勤系统</h2>
+			<div id="box-time" class="box-time"></div>
+		</div>
+		<div class="content">
+			<div class="left-box">
+				<div class="video-box">
+					<span class="corner1"></span>
+					<span class="corner2"></span>
+					<span class="corner3"></span>
+					<span class="corner4"></span>
+					<video id="video" width="580px" height="436px" style="z-index: 100;" autoplay></video>
+					<canvas hidden="hidden" id="canvas" width="580" height="436"></canvas>
+				</div>
+			</div>
+			<div class="right-box">
+				<div class="input-group mb-3">
+					<input id="userid" type="text" class="form-control" placeholder="请输入工号" aria-label="请输入工号" aria-describedby="sub">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="submit" id="sub">提交</button>
+					</div>
+				</div>
+				<div>
+					<button id="open" class="btn btn-primary" style="margin-right: 20px;">开启摄像头</button>
+					<button id="close" class="btn btn-primary" style="margin-right: 20px;">关闭摄像头</button>
+					<button id="CatchCode" class="btn btn-primary">拍照</button>
+				</div>
+				<div class="detail-box">
+					<div class="isChock">
+						<div class="header">已打卡</div>
+						<div class="detail-content">
+							<div>张三</div>
+							<div>张三</div>
+						</div>
+					</div>
+					<div class="notChock">
+						<div class="header">未打卡</div>
+						<div class="detail-content">
+							<div>王苇</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- particles.js container -->
+	<div id="particles-js" style="height: 100vh; position: fixed; top: 0; z-index: 1; background: url('../img/bg.jpg'); background-size: auto; overflow: hidden;"></div>
+	
+	<!-- scripts -->
+	<script src="../common/login/particles.min.js"></script>
+	<script src="../common/login/js/app.js"></script>
+	<!-- Bootstrap core JavaScript-->
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="../vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="../js/demo/chart-area-demo.js"></script>
+  <script src="../js/demo/chart-pie-demo.js"></script>
+</body>
+<script>
+	window.onload=function(){
+		//定时器每秒调用一次fnDate()
+		setInterval(function(){
+		fnDate();
+		},1000);
+	}
+	function fnDate(){
+		var oDiv=document.getElementById("box-time");
+		var date=new Date();
+		var year=date.getFullYear();//当前年份
+		var month=date.getMonth();//当前月份
+		var data=date.getDate();//天
+		var hours=date.getHours();//小时
+		var minute=date.getMinutes();//分
+		var second=date.getSeconds();//秒
+		var time="时间：" + year+"-"+fnW((month+1))+"-"+fnW(data)+" "+fnW(hours)+":"+fnW(minute)+":"+fnW(second);
+		oDiv.innerHTML=time;
+	}
+	function fnW(str){
+		var num;
+		str>=10?num=str:num="0"+str;
+		return num;
+	} 
+</script>
+<script type="text/javascript">
+	var video;//视频流对象
+	var context;//绘制对象
+	var canvas;//画布对象
+	var userid
+	$("#sub").click(function() {
+	userid = $("#userid")[0].value;
+	console.log(userid)
+	});
+
+	$(function() {
+		var flag = false;
+		
+		//开启摄像头
+		$("#open").click(function() {
+
+			//判断摄像头是否打开
+			if (!flag) {
+				//调用摄像头初始化
+				open();
+				flag = true;
+			}
+		});
+		//关闭摄像头
+		$("#close").click(function() {
+			
+			//判断摄像头是否打开
+			if (flag) {
+				video.srcObject.getTracks()[0].stop();
+				flag = false;
+			}
+		});
+		//拍照
+		$("#CatchCode").click(function() {
+			if (flag) {
+				context.drawImage(video, 0, 0, 330, 250);
+				CatchCode();
+				
+			} else
+				alert("请先开启摄像头!");
+		});
+	});
+	//将当前图像传输到后台
+	function CatchCode() {
+		//获取图像
+		var img = getBase64();
+
+		//Ajax将Base64字符串传输到后台处理
+		$.ajax({
+			type : "POST",
+			url : "http://localhost:8080/faceLoginServlet",
+			data : {
+				img : img,
+				userid : userid
+			},
+			dataType: 'json',  // Servlet跨域访问
+					
+			success : function(data) {
+				console.log(data);
+				//返回的结果
+				//取出对比结果的返回分数，如果分数90以上就判断识别成功了
+				if(parseInt(data.result.user_list[0].score) > 75) {
+					//关闭摄像头
+					video.srcObject.getTracks()[0].stop();
+					//提醒用户识别成功
+					
+					alert("验证成功!"+data.result.user_list[0].user_id);
+					
+					//验证成功跳转页面
+					//window.location.href="";
+					}else alert("验证失败!");
+			},
+			error : function(q, w, e) {
+				alert(q + w + e);
+			}
+		});
+	};
+	//开启摄像头
+	function open() {
+		//获取摄像头对象
+		canvas = document.getElementById("canvas");
+		context = canvas.getContext("2d");
+		//获取视频流
+		video = document.getElementById("video");
+		var videoObj = {
+			"video" : true
+		}, errBack = function(error) {
+			console.log("Video capture error: ", error.code);
+		};
+		context.drawImage(video, 0, 0, 330, 250);
+		//初始化摄像头参数
+		if (navigator.getUserMedia || navigator.webkitGetUserMedia
+				|| navigator.mozGetUserMedia) {
+			navigator.getUserMedia = navigator.getUserMedia
+					|| navigator.webkitGetUserMedia
+					|| navigator.mozGetUserMedia;
+			navigator.getUserMedia(videoObj, function(stream) {
+				video.srcObject = stream;
+				video.play();
+			}, errBack);
+		}
+	}
+	//将摄像头拍取的图片转换为Base64格式字符串
+	function getBase64() {
+		//获取当前图像并转换为Base64的字符串
+		var imgSrc = canvas.toDataURL("image/png");
+		//截取字符串
+		return imgSrc.substring(22);
+	};
+</script>
+</html>
+

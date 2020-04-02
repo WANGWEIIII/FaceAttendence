@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		 <div class="form-group">
+                      <input type="number" class="form-control form-control-user" id="username" name="username" placeholder="用户名" method="post">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="密码">
+                    </div>
+                    <div class="form-group">
+                      <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                        <label class="custom-control-label" for="customCheck">记住密码</label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-user btn-block" id="login">
+                      登录
+                    </button>
+                    
+                    <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../js/sb-admin-2.min.js"></script>
+  
+  <script>
+  	  $("#login").click(function(){
+  	  	
+       var username = $.trim($("#username").val());
+       var password = $.trim($("#password").val());
+
+    //前台的非空验证
+    if(username == "" || username == null){
+        alert("用户名不能为空")
+    }else if(password == "" || password == null){
+        alert("密码不能为空")
+    }else{
+    	$.ajax({
+				url: "http://localhost:8080/loginservlet",      //相当于form表单里面的 action="AdminAction_login"
+				type: "POST",    //相当于form表单里面的 method="post"
+				//需要传到Action里面的值
+        data: {"username":username,"password":password },
+        dataType: "json",
+				success: function (result) {
+					if(result.code==1){
+						location.href="http://127.0.0.1:8020/javatest/index.html";
+					}else{
+									location.href= "http://127.0.0.1:8020/FaceToAttendance/pages/404.html";
+								}
+								},
+				error: function () {
+									alert("error");
+												}
+											});
+										}
+ 	   })
+  	  
+
+
+  	
+  </script>
+	</body>
+</html>

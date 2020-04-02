@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>公司考勤系统</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <style>
+    .chock-all{
+			width: 100%;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      height: 160px;
+      background: #eee;
+			float: left;
+    }
+    .chock-all .header{
+      width: 100%;
+      height: 50px;
+      padding: 15px 30px;
+    }
+    .chock-all .content{
+      display: flex;
+      margin: 10px 20px;
+    }
+    .chock-all .content>div{
+      flex: 1;
+      text-align: center;
+      font-size: 16px;
+      border-right: rgb(211, 211, 211) solid 2px;
+    }
+    .chock-all .content>div>span{
+      font-size: 34px;
+      color: rgb(36, 33, 33);
+      font-weight: bold;
+      line-height: 50px;
+    }
+    .card-left{
+      padding-right: 20px;
+      box-sizing: border-box;
+      width: 29%;
+      border-right: 2px dashed #ddd;
+    }
+    .card-right{
+      margin-left: 20px;
+      width: 60%;
+    }
+    .user-info{
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      padding: 20px;
+      border-radius: 5px;
+      display: flex;
+      box-shadow: 6px 6px 10px 0px rgb(160, 160, 160);
+    }
+  </style>
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+       <!-- Topbar -->
+       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <!-- Sidebar Toggle (Topbar) -->
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <i class="fa fa-bars"></i>
+        </button>
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+          <li class="nav-item dropdown no-arrow d-sm-none">
+            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-search fa-fw"></i>
+            </a>
+            <!-- Dropdown - Messages -->
+            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+              <form class="form-inline mr-auto w-100 navbar-search">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+          <!-- Nav Item - User Information -->
+          <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">王苇</span>
+              <img class="img-profile rounded-circle" src="../../common/img/user.jpg">
+            </a>
+            <!-- Dropdown - User Information -->
+            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                个人信息
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                设置
+              </a>
+              <a class="dropdown-item" href="#">
+                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                修改密码
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                退出
+              </a>
+            </div>
+          </li>
+
+        </ul>
+
+      </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3" style="background: #a4c2f4;">
+              <h4 class="m-0 font-weight-bold text-primary" style="float: left;">个人信息</h4>
+              <div style="float: right; ">
+                <input type="text" class="form-control" id="laydate" placeholder="请选择月份">
+              </div>
+            </div>
+            <div class="card-body" style="display: flex;">
+              <div class='card-left'>
+                <div class="user-info">
+                  <div>
+                    <img src="../../common/img/user.jpg" class="rounded" alt="Cinque Terre" width="100" height="100"> <br>
+                    <button style="margin: 20px 5px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">修改信息</button>
+                  </div>
+                  <div style="margin-left: 20px; padding-left: 20px;border-left: 2px dashed #ddd;">
+                    <div><span>工号：</span><span id="id"></span></div>
+                    <div><span>姓名：</span><span id="name"></span></div>
+                    <div><span>部门：</span><span id="section"></span></div>
+                    <div><span>职位：</span><span id="situation"></span></div>
+                    <div><span>性别：</span><span id="sex"></span></div>
+                    <div><span>年龄：</span><span id="age"></span></div>
+                    <div><span>电话：</span><span id="phone"></span></div>
+                    <div><span>地址：</span><span id="address"></span></div>
+                    <div><span>邮箱：</span><span id="email"></span></div>
+                  </div>
+                </div>
+                <div style="margin-top: 80px;">
+                  <h5 style="text-align: center;">个人考勤统计</h5>
+                  <div style="width: 100%;  margin-top: 20px;">
+                    <canvas id="myPieChart" style="width: 100%; height: 160PX;"></canvas> 
+                  </div>
+                  <div class="mt-4 text-center small" style="width: 100%;line-height: 26px;margin-left: 20px;">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> 正常出勤
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> 迟到
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> 早退
+                    </span><br>
+                    <span class="mr-2">
+                      <i class="fas fa-circle" style="color: #cc4b36;"></i> 缺勤/旷工
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle" style="color: #d2de12"></i> 请假
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle" style="color:#e5e5e5"></i> 加班
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class='card-right'>
+                <div class="chock-all">
+                  <div class="header">
+                    <h5>考勤情况概览</h5>
+                  </div>
+                  <div class="content">
+                    <div>
+                      正常出勤<br>
+                      <span>59</span>
+                    </div>
+                    <div>
+                      迟到次数<br>
+                      <span>8</span>
+                    </div>
+                    <div>
+                      早退次数<br>
+                      <span>4</span>
+                    </div>
+                    <div>
+                      请假次数<br>
+                      <span>2</span>
+                    </div>
+                    <div>
+                      出差次数<br>
+                      <span>8</span>
+                    </div>
+                    <div>
+                      缺勤/旷工次数<br>
+                      <span>1</span>
+                    </div>
+                    <div style="border-right:none">
+                      加班次数<br>
+                      <span>11</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>姓名</th>
+                        <th>部门</th>
+                        <th>工号</th>
+                        <th>上班打卡</th>
+                        <th>下班打卡</th>
+                        <th>状态</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>Edinburgh</td>
+                        <td>61</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
+                         
+                      </tr>
+                      <tr>
+                        <td>Garrett Winters</td>
+                        <td>Accountant</td>
+                        <td>Tokyo</td>
+                        <td>63</td>
+                        <td>2011/07/25</td>
+                        <td>$170,750</td>
+                         
+                      </tr>
+         
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+       
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+              <h4 class="modal-title">个人信息修改</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+       
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputEmail4">姓名</label>
+                    <input type="email" class="form-control" id="inputEmail4" disabled>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="imggg">照片</label>
+                    <input type="file" class="form-control" id="imggg" disabled>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputAddress">部门</label>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="" disabled>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputPassword4">工号</label>
+                    <input type="password" class="form-control" id="inputPassword4" disabled>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">电话</label>
+                    <input type="text" class="form-control" id="inputCity">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="inputState">性别</label>
+                    <select id="inputState" class="form-control" disabled>
+                      <option selected>男</option>
+                      <option>女</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputZip">年龄</label>
+                    <input type="text" class="form-control" id="inputZip">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress2">地址</label>
+                  <input type="text" class="form-control" id="inputAddress2" placeholder="">
+                </div>
+              </form>
+            </div>
+       
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">保存</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+       
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">登出</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">您确定退出系统吗？</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+          <a class="btn btn-primary" href="../login.html">退出</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="../../vendor/jquery/jquery.min.js"></script>
+  <script src="../../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../../js/sb-admin-2.min.js"></script>
+ <!-- laydata -->
+ <script src="../../vendor/laydate/laydate.js"></script>
+  <!-- Page level plugins -->
+  <script src="../../vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="../../js/demo/datatables-demo.js"></script>
+    <!-- Page level plugins -->
+    <script src="../../vendor/chart.js/Chart.min.js"></script>
+    <script src="../../js/demo/chart-pie-demo.js"></script> 
+  <script>
+    laydate.render({
+      elem: '#laydate' ,//指定元素
+			type: 'month'
+    });
+    
+   
+		var number = localStorage.getItem("user");
+//		console.log(number)
+    	
+    $.ajax({
+				type:"post",
+//				url:"http://www.blogzl.com/zl_other_module/ajaxTest/postTest.php",
+				url:"http://localhost:8080/staffmainservlet",
+				data: {"number":number},
+				async:true,
+				dataType:'json',
+				success:function(person){
+					alert(person.id)
+					$("#id").text(person.id)
+					$("#name").text(person.name)
+					$("#sex").text(person.sex)
+					$("#age").text(person.age)
+					$("#phone").text(person.phone)
+					$("#address").text(person.address)
+					$("#email").text(person.email)
+					$("#section").text(person.section)
+					$("#situation").text(person.situation)
+					
+
+					
+//					for()
+//					let data = 
+//					$('#dataTable tbody').append(data)
+	
+				},
+				error:function(xhr){
+					alert("服务器连接失败")
+				}
+		
+			});
+			
+			 $.ajax({
+				type:"post",
+				url:"http://localhost:8080/attendenceservlet",
+				data: {"number":number},
+				async:true,
+				dataType:'json',
+				success:function(atts){
+					alert(atts)
+					console.log(atts)
+					
+//					$("#id2").text(att.id)
+//					$("#startTime").text(att.name)
+//					$("#endTime").text(att.sex)
+//					$("#rem").text(att.age)
+//					$("#state").text(att.phone)
+					let data = ''
+					for(let i = 0; i < atts.length; i++) {
+						data += '<tr>' + 
+											'<td>' + atts[i].startTime + '</td>'
+											'</tr>'
+					}
+					 
+					$('#dataTable tbody').append(data)
+	
+				},
+				error:function(xhr){
+					alert("服务器连接失败")
+				}
+		
+			});
+ 	  
+  
+  </script>
+</body>
+
+</html>
